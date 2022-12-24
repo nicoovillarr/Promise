@@ -22,12 +22,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="December 23th"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginHorizontal="64dp"
+            android:layout_marginHorizontal="40dp"
             android:layout_marginTop="8dp">
 
             <ProgressBar
@@ -35,26 +35,26 @@
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:progressDrawable="@drawable/bg_progress_bar"/>
+                android:progressDrawable="@drawable/bg_progress_bar" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="80%"
-                android:textColor="@color/white"
+                android:shadowColor="#7F000000"
                 android:shadowRadius="2"
-                android:shadowColor="#7F000000"/>
+                android:text="80%"
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="16dp"
             android:layout_marginHorizontal="20dp"
-            app:alignItems="stretch"
-            app:alignContent="stretch">
+            android:layout_marginTop="16dp"
+            app:alignContent="stretch"
+            app:alignItems="stretch">
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -72,20 +72,21 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical">
+
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/pie_chart"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:rotation="-30"/>
+                            android:rotation="-30" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="12/2/6"
                             android:layout_gravity="center"
-                            android:textColor="@color/black"
                             android:fontFamily="sans-serif-light"
-                            android:textSize="12sp"/>
+                            android:text="12/2/6"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -111,23 +112,23 @@
                         <Button
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:background="@drawable/ic_arrow_left"
-                            android:layout_gravity="center_vertical"/>
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/ic_arrow_left" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
                             android:text="2023"
-                            android:textSize="40sp"
-                            android:textStyle="bold"
                             android:textColor="@color/black"
-                            android:layout_marginHorizontal="16dp"/>
+                            android:textSize="40sp"
+                            android:textStyle="bold" />
 
                         <Button
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:background="@drawable/ic_arrow_right"
-                            android:layout_gravity="center_vertical"/>
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/ic_arrow_right" />
 
                     </LinearLayout>
 
@@ -140,29 +141,29 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:cardBackgroundColor="#8F8F8F"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#8F8F8F"
             app:cardCornerRadius="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Ads"
-                android:textColor="@color/white"
-                android:layout_gravity="center"/>
+                android:textColor="@color/white" />
 
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="24dp"
-            android:paddingBottom="16dp"
             android:layout_marginTop="16dp"
-            android:orientation="vertical"
+            android:clipChildren="false"
             android:clipToPadding="false"
-            android:clipChildren="false">
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="16dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -182,16 +183,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
                         android:text="Sort by:"
-                        android:textStyle="bold"
                         android:textColor="#8F00FF"
-                        android:layout_marginEnd="4dp"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="status"
-                        android:textColor="#8F00FF"/>
+                        android:textColor="#8F00FF" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -200,14 +201,14 @@
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@drawable/ic_triangle_up"/>
+                            android:src="@drawable/ic_triangle_up" />
 
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@drawable/ic_triangle_down"
                             android:layout_marginTop="6dp"
-                            android:alpha="0.4"/>
+                            android:alpha="0.4"
+                            android:src="@drawable/ic_triangle_down" />
 
                     </RelativeLayout>
 
@@ -225,17 +226,17 @@
                     android:id="@+id/noGoalsMsg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
                     android:text="Looks like you didn't set any goal yet!"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:layout_gravity="center"
-                    android:layout_margin="16dp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/goalsRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </androidx.cardview.widget.CardView>
 
