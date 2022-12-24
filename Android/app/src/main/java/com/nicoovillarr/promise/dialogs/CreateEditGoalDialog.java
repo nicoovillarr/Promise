@@ -64,7 +64,7 @@ public class CreateEditGoalDialog extends Dialog {
         this.etDesc.setText(this.goal != null ? this.goal.getDescription() : "");
 
         TextView tvTitle = findViewById(R.id.dialogTitle);
-        tvTitle.setText(this.goal == null ? "Create a new goal" : "Edit");
+        tvTitle.setText(this.goal == null ? "Make a promise" : "Edit");
 
         Button onSaveBtn = findViewById(R.id.saveBtn);
         onSaveBtn.setOnClickListener(v -> this.onSaveClick());

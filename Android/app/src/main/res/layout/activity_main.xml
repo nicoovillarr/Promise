@@ -172,7 +172,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your goals for 2023..."
+                    android:text="Your promises for 2023..."
                     android:textSize="14sp" />
 
                 <LinearLayout
@@ -228,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
-                    android:text="Looks like you didn't set any goal yet!"
+                    android:text="Looks like you didn't set any promise yet!"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:visibility="gone" />
