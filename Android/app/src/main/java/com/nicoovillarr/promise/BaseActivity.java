@@ -10,9 +10,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private FloatingActionButton fab;
-
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,15 +34,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract int layoutId();
 
     private void loadToolbar() {
-        this.toolbar = findViewById(R.id.toolbar);
-        if (this.toolbar != null) {
-            setSupportActionBar(this.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
         }
     }
 
     private void setUpFab() {
-        this.fab = findViewById(R.id.fab);
-        this.fab.setOnClickListener(v -> this.onFabClick());
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(v -> this.onFabClick());
     }
 
 }
