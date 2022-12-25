@@ -1,6 +1,8 @@
 package com.nicoovillarr.promise;
 
+import android.annotation.SuppressLint;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
+    private int year;
     private ProgressBar yearProgress;
     private PieChart pieChart;
     private RecyclerView goalsRecyclerView;
@@ -35,6 +38,7 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     final protected void customActivityInit() {
         this.setToolbarTitle("Hi, nicoovillarr");
@@ -50,6 +54,28 @@ public class MainActivity extends BaseActivity {
 
         this.noGoalsMsg = findViewById(R.id.noGoalsMsg);
         this.updateNoGoalMsgVisibility();
+
+        TextView tvCurrentYear = findViewById(R.id.currentYear);
+        this.year = LocalDateTime.now().getYear();
+        tvCurrentYear.setText(String.valueOf(this.year));
+
+        TextView goalsTitle = findViewById(R.id.goalsTitle);
+
+        Button prevYearBtn = findViewById(R.id.prevYearBtn);
+        prevYearBtn.setOnClickListener(v -> {
+            this.year--;
+            tvCurrentYear.setText(String.valueOf(this.year));
+            goalsTitle.setText(String.format("Your promises for %d...", this.year));
+        });
+
+        Button nextYearBtn = findViewById(R.id.nextYearBtn);
+        nextYearBtn.setOnClickListener(v -> {
+            this.year++;
+            tvCurrentYear.setText(String.valueOf(this.year));
+            goalsTitle.setText(String.format("Your promises for %d...", this.year));
+        });
+
+        goalsTitle.setText(String.format("Your promises for %d...", this.year));
     }
     
     @Override
@@ -104,8 +130,7 @@ public class MainActivity extends BaseActivity {
         this.goalsRecyclerView.setAdapter(adapter);
         adapter.setOnRowClick((i, old) -> {
             CreateEditGoalDialog dialog = new CreateEditGoalDialog(this, old);
-            dialog
-                    .setOnSaveListener(newGoal -> adapter.updateGoal(i, newGoal))
+            dialog.setOnSaveListener(newGoal -> adapter.updateGoal(i, newGoal))
                     .setOnDeleteListener(() -> {
                         adapter.deleteGoal(i);
                         this.updateNoGoalMsgVisibility();

@@ -110,25 +110,30 @@
                         android:layout_gravity="center">
 
                         <Button
+                            android:id="@+id/prevYearBtn"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="center_vertical"
-                            android:background="@drawable/ic_arrow_left" />
+                            android:background="@drawable/ic_arrow_left"
+                            android:padding="8dp"/>
 
                         <TextView
+                            android:id="@+id/currentYear"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
-                            android:text="2023"
+                            android:text="Year"
                             android:textColor="@color/black"
                             android:textSize="40sp"
                             android:textStyle="bold" />
 
                         <Button
+                            android:id="@+id/nextYearBtn"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="center_vertical"
-                            android:background="@drawable/ic_arrow_right" />
+                            android:background="@drawable/ic_arrow_right"
+                            android:padding="8dp" />
 
                     </LinearLayout>
 
@@ -170,6 +175,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/goalsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Your promises for 2023..."
