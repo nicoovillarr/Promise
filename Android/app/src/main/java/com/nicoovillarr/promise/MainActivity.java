@@ -7,6 +7,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,17 +20,21 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.nicoovillarr.promise.adapters.GoalsAdapter;
+import com.nicoovillarr.promise.databinding.ActivityMainBinding;
 import com.nicoovillarr.promise.dialogs.CreateEditGoalDialog;
 import com.nicoovillarr.promise.models.Goal;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseBindingActivity<ActivityMainBinding> {
 
-    private int year;
-    private ProgressBar yearProgress;
+    private ViewModel viewModel;
+
     private PieChart pieChart;
     private RecyclerView goalsRecyclerView;
     private TextView noGoalsMsg;
@@ -41,10 +47,14 @@ public class MainActivity extends BaseActivity {
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     final protected void customActivityInit() {
+        this.viewModel = new ViewModel();
+        this.getBinding().setViewModel(this.viewModel);
+        this.getBinding().setLifecycleOwner(this);
+
         this.setToolbarTitle("Hi, nicoovillarr");
 
-        this.yearProgress = findViewById(R.id.year_progress);
-        this.yearProgress.setProgress(80);
+        float yearProgress = (float) LocalDate.now().getDayOfYear() / 365;
+        this.viewModel.setYearProgress(Math.round(yearProgress * 100));
 
         this.pieChart = findViewById(R.id.pie_chart);
         this.loadPieChartData();
@@ -55,27 +65,15 @@ public class MainActivity extends BaseActivity {
         this.noGoalsMsg = findViewById(R.id.noGoalsMsg);
         this.updateNoGoalMsgVisibility();
 
-        TextView tvCurrentYear = findViewById(R.id.currentYear);
-        this.year = LocalDateTime.now().getYear();
-        tvCurrentYear.setText(String.valueOf(this.year));
-
-        TextView goalsTitle = findViewById(R.id.goalsTitle);
-
         Button prevYearBtn = findViewById(R.id.prevYearBtn);
         prevYearBtn.setOnClickListener(v -> {
-            this.year--;
-            tvCurrentYear.setText(String.valueOf(this.year));
-            goalsTitle.setText(String.format("Your promises for %d...", this.year));
+            this.viewModel.decreaseYear();
         });
 
         Button nextYearBtn = findViewById(R.id.nextYearBtn);
         nextYearBtn.setOnClickListener(v -> {
-            this.year++;
-            tvCurrentYear.setText(String.valueOf(this.year));
-            goalsTitle.setText(String.format("Your promises for %d...", this.year));
+            this.viewModel.increaseYear();
         });
-
-        goalsTitle.setText(String.format("Your promises for %d...", this.year));
     }
     
     @Override
@@ -143,6 +141,69 @@ public class MainActivity extends BaseActivity {
         GoalsAdapter adapter = (GoalsAdapter) this.goalsRecyclerView.getAdapter();
         assert adapter != null;
         this.noGoalsMsg.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+    }
+
+    public static class ViewModel extends BaseObservable {
+
+        private String goalsTitle;
+        private Integer currentYear;
+        private Integer yearProgress;
+        private final HashMap<Integer, List<Goal>> years;
+
+        public ViewModel() {
+            this.currentYear = LocalDateTime.now().getYear();
+            this.years = new HashMap<>();
+            this.setGoalsTitle();
+        }
+
+        public HashMap<Integer, List<Goal>> getYears() {
+            return years;
+        }
+
+        @Bindable()
+        public Integer getCurrentYear() {
+            return currentYear;
+        }
+
+        public void increaseYear() {
+            this.currentYear++;
+            this.setGoalsTitle();
+            this.notifyPropertyChanged(BR.currentYear);
+        }
+
+        public void decreaseYear() {
+            this.currentYear--;
+            this.setGoalsTitle();
+            this.notifyPropertyChanged(BR.currentYear);
+        }
+
+        @SuppressLint("DefaultLocale")
+        private void setGoalsTitle() {
+            this.goalsTitle = String.format("Your promises for %d...", this.currentYear);
+            this.notifyPropertyChanged(BR.goalsTitle);
+        }
+
+        @Bindable()
+        public String getGoalsTitle() {
+            return this.goalsTitle;
+        }
+
+        @Bindable()
+        public Integer getYearProgress() {
+            return yearProgress;
+        }
+
+        public void setYearProgress(Integer yearProgress) {
+            this.yearProgress = yearProgress;
+        }
+
+        public boolean addYearGoal(Integer year, Goal g) {
+            if (!this.years.containsKey(year)) {
+                this.years.put(year, new ArrayList<>());
+            }
+
+            return Objects.requireNonNull(this.years.get(year)).add(g);
+        }
     }
 
 }

@@ -14,12 +14,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     private FloatingActionButton fab;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(this.layoutId());
+        this.setView();
         this.loadToolbar();
         this.setUpFab();
         this.customActivityInit();
+    }
+
+    protected void setView() {
+        setContentView(this.layoutId());
     }
 
     protected void customActivityInit() {}
