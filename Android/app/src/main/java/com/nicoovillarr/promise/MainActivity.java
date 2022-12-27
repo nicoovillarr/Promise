@@ -145,6 +145,7 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding> {
 
     public static class ViewModel extends BaseObservable {
 
+        private String yearTitle;
         private String goalsTitle;
         private Integer currentYear;
         private Integer yearProgress;
@@ -154,6 +155,7 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding> {
             this.currentYear = LocalDateTime.now().getYear();
             this.years = new HashMap<>();
             this.setGoalsTitle();
+            this.setYearTitle();
         }
 
         public HashMap<Integer, List<Goal>> getYears() {
@@ -175,6 +177,16 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding> {
             this.currentYear--;
             this.setGoalsTitle();
             this.notifyPropertyChanged(BR.currentYear);
+        }
+
+        public void setYearTitle() {
+            this.yearTitle = utils.getDateString(LocalDate.now());
+            this.notifyPropertyChanged(BR.yearTitle);
+        }
+
+        @Bindable()
+        public String getYearTitle() {
+            return yearTitle;
         }
 
         @SuppressLint("DefaultLocale")
